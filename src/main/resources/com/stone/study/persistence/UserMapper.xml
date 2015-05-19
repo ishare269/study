@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.stone.study.persistence.UserMapper">
+	<resultMap type="com.stone.study.domain.User" id="returnUserMap">
+		<id property="id" column="id" />
+		<result property="username" column="username" />
+		<result property="realname" column="realname" />
+		<result property="password" column="password" />
+		<result property="portrait" column="portrait" />
+		<result property="userdetail" column="userdetail" />
+		<result property="birthday" column="birthday" />
+		<result property="marriage" column="marriage" />
+		<result property="sex" column="sex" />
+		<result property="blood" column="blood" />
+		<result property="figure" column="figure" />
+		<result property="constellation" column="constellation" />
+		<result property="education" column="education" />
+		<result property="province" column="province" />
+		<result property="city" column="city" />
+		<result property="street" column="street" />
+		<result property="trade" column="trade" />
+		<result property="job" column="job" />
+		<result property="tel" column="tel" />
+		<result property="mail" column="mail" />
+		<result property="addtime" column="addtime" />
+		<result property="logintime" column="logintime" />
+		<result property="status" column="status" />
+		<result property="flag" column="flag" />
+		<result property="openid" column="openid" />
+	</resultMap>
+
+	<insert id="insertUser">
+		insert into
+		user(username,nickname,realname,password,portrait,userdetail,birthday,marriage,sex,blood
+		,figure,constellation,education,province,city,street,trade,job,tel,mail,status,flag,openid,addtime)
+		values(#{username},#{nickname},#{realname},#{password},#{portrait},#{userdetail},#{birthday},#{marriage},#{sex},#{blood},
+		#{figure},#{constellation},#{education},#{province},#{city},#{street},#{trade},#{job},#{tel},#{mail},#{status},#{flag},
+		#{openid},now())
+	</insert>
+
+	<update id="updateUser">
+		update user
+		<set>
+			<if test="realname!=null">realname=#{realname},</if>
+			<if test="password!=null">password=#{password},</if>
+			<if test="portrait!=null">portrait=#{portrait},</if>
+			<if test="userdetail!=null">userdetail=#{userdetail},</if>
+			<if test="birthday!=null">birthday=#{birthday},</if>
+			<if test="birthday!=null">nickname=#{nickname},</if>
+			<if test="marriage!=null">marriage=#{marriage},</if>
+			<if test="sex!=null">sex=#{sex},</if>
+			<if test="blood!=null">blood=#{blood},</if>
+			<if test="figure!=null">figure=#{figure},</if>
+			<if test="constellation!=null">constellation=#{constellation},</if>
+			<if test="education!=null">education=#{education},</if>
+			<if test="province!=null">province=#{province},</if>
+			<if test="city!=null">city=#{city},</if>
+			<if test="street!=null">street=#{street},</if>
+			<if test="trade!=null">trade=#{trade},</if>
+			<if test="job!=null">job=#{job},</if>
+			<if test="tel!=null">tel=#{tel},</if>
+			<if test="mail!=null">mail=#{mail},</if>
+			<if test="logintime!=null">logintime=#{logintime},</if>
+			<if test="status!=null">status=#{status},</if>
+			<if test="flag!=null">flag=#{flag},</if>
+		</set>
+		<where>
+			id = #{id}
+		</where>
+	</update>
+
+	<select id="findUserByNameAndPwd" resultType="com.stone.study.domain.User">
+		select * from user
+		where username=#{uname} and password=#{upwd}
+	</select>
+
+	<select id="findByIdOrOpenid" resultType="com.stone.study.domain.User">
+		select * from user
+		<where>
+			<if test="openid!=null">
+				openid = #{openid} or
+			</if>
+			id = #{id}
+		</where>
+	</select>
+
+	<select id="findUserByUsername" resultType="com.stone.study.domain.User">
+		select * from user
+		where username = #{username}
+	</select>
+</mapper>

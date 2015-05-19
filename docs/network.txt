@@ -1,0 +1,101 @@
+JAVA网络编程学习笔记
+网络编程具备知识：
+	1、理解网络的分层思想和TCP/IP协议
+	1.1、进程之间的通信
+		进程是指运行中的程序，进程的作用就是执行程序中的代码。
+	1.2、计算机网路概念
+		计算机网路是现代通信技术和计算机技术相结合的产物。
+		计算机网路是指分布在不同地理区域的计算机用通信线路互联起来的一个具有强大功能的网络体系（多台电脑通过通信线路连接在一起进行相互通信）
+		网络中的每台机器称为节点（node）
+		网络协议
+			人与人之间通过某种语言来交流，网络中的主机之间也通过“语言”来交流，这种语言就称为网络协议。
+		网络分类：
+			按照计算机联网的区域大小，可以把网络分为局域网（LAN，local Area Network）和广域网（WAN，Wide Area Network）.
+			局域网:在一个较小地理范围内的各种计算机互联在一起的通信网络，可以包含一个或多个子网，通常局限在几千米的范围之内。
+			广域网：连接地址范围较大，常常是一个国家或是一个洲，其目的是为了让分布较远的各局域网互联。
+		
+
+192.168.1.1	192.168.1.2    255.255.255.0
+
+11000000	10101000	00000001	00000001
+11100001	11100001	11100001	00000000
+11000000	10100000	00000001	00000000
+192		160		1		0
+
+11000000	10101000	00000001	00000010
+11100001	11100001	11100001	00000000
+11000000	10100000	00000001	00000000
+
+192		160		1		0
+
+
+
+
+
+
+
+
+
+
+
+
+OSI（Open System Interconnect）开放系统互联参考模型
+应用层（Application Layer） 
+	文件传输，电子邮件，文件服务，虚拟终端 TFTP，HTTP，SNMP，FTP，SMTP，DNS，Telnet
+	规定应用程序的数据格式
+表示层（Presentation layer）
+	数据格式化，代码转换，数据加密 没有协议
+会话层（Session layer）
+	解除或建立与别的接点的联系 没有协议
+传输层（Transport Layer）
+	提供端对端的接口 TCP，UDP
+	建立”端口到端口”的通信
+	端口（port）：每一个使用网卡的程序的编号。每个数据包都发到主机的特定端口，所以不同的程序就能取到自己所需要的数据。“端口”是0到65535之间的一个整数。正好16个二进制位。0到1023的端口被系统占用，用户只能选用大于1023的端口。不管是浏览网页还是在线聊天，应用程序会随机选用一个端口，然后与服务器的相应端口联系
+	UDP协议：在数据前面，加上端口号。UDP协议的优点是比较简单，容易实现，但是缺点是可靠性较差，一旦数据包发出，无法知道对方是否收到。
+	TCP协议：就是有确认机制的UDP协议，每发出一个数据包都要求确认。如果有一个数据包遗失，就收不到确认，发出方就知道有必要重发这个数据包了。
+网络层（Network Layer）
+	为数据包选择路由 IP，ICMP，RIP，OSPF，BGP，IGMP
+	建立”主机到主机”的通信
+	如果是同一个子网络，就采用广播方式发送，否则就采用”路由”方式发送。MAC地址本身无法做到这一点。它只与厂商有关，与所处网络无关。这就导致了”网络层”的诞生。它的作用是引进一套新的地址，使得我们能够区分不同的计算机是否属于同一个子网络。这套地址就叫做”网络地址”，简称”网址”。网络地址帮助我们确定计算机所在的子网络，MAC地址则将数据包送到该子网络中的目标网卡。
+	路由:指如何向不同的子网络分发数据包。
+	IP协议：网络地址的协议，叫做IP协议。它所定义的地址，就被称为IP地址。
+	IPv4：Internet Protocol version 4
+	子网掩码（Subnet mask）：通过子网掩码来判断ip是否处于同一网段。
+	IP协议的作用主要有两个，一个是为每一台计算机分配IP地址，另一个是确定哪些地址在同一个子网络。
+	IP数据包：根据IP协议发送的数据，就叫做IP数据包。不难想象，其中必定包括IP地址信息。
+	ARP协议：即ARP（Address Resolution Protocol），是根据IP地址获取物理地址的一个TCP/IP协议。
+数据链路层（Link Layer）
+	确定了0和1的分组方式。
+	传输有地址的帧以及错误检测功能 SLIP，CSLIP，PPP，ARP，RARP，MTU
+	以太网数据包
+	以太网协议（Ethernet）：一组电信号构成的一个数据包叫“帧（Frame）”，由“标头（Head）”和“数据（Data）组成”。
+	“标头”包含数据包的一些说明项，比如发送者、接受者、数据类型等等；”数据”则是数据包的具体内容。
+	“标头”的长度，固定为18字节。”数据”的长度，最短为46字节，最长为1500字节。因此，整个”帧”最短为64字节，最长为1518字节。如果数据很长，就必须分割成多个帧进行发送。
+	MAC地址：数据包的发送地址和接收地址，这叫做MAC地址。每块网卡出厂的时候，都有一个全世界独一无二的MAC地址，长度是48个二进制位，通常用12个十六进制数表示。前6个十六进制数是厂商编号，后6个是该厂商的网卡流水号。有了MAC地址，就可以定位网卡和数据包的路径了。
+	广播（broadcasting）：向本网络内所有计算机发送，让每台计算机自己判断，是否为接收方。
+物理层（Physical Layer）
+	以二进制数据形式在物理媒体上传输数据 ISO2110，IEEE802，IEEE802.2
+	把电脑连接起来的物理手段。它主要规定了网络的一些电气特性，作用是负责传送0和1的电信号。
+
+TCP/IP（Transfer Control Protocol/Internet Protocol）传输控制协议/网际协议
+应用层
+传输层
+网络层
+数据链路层
+物理层
+
+
+传输层:  1． 提供可靠或不可靠的传输  2． 在重传之前执行错误纠正    网络层:  1. 提供逻辑寻址,以便进行路由选择.  数据链路层:  1. 将数据包组合为字节,字节组合为帧  2. 使用MAC地址提供对介质的访问  3. 执行错误检测，但不纠正    物理层:  1. 在设备之间传输比特流  2. 制定电压大小、线路速率和电缆的引脚数    工作在OSI模型的所有7层的网络设备包括:  1. 网络治理系统(NMS)  2. WEB 和应用程序服务器  3. 网关(非默认网关)  4. 网络主机 
+OSI参考模型的7搜索层和各层的功能  1. Application layer 文件、打印、消息、数据库和应用程序  2. Presentation layer 数据加密、压缩和转换服务  3. Session layer 会话控制  4. Transport layer 端到端连接  5. Network layer 路由选择  6. Data Link layer 数据组合成帧  7. Physical layer 物理拓扑
+
+
+应用层
+　　·DHCP(动态主机分配协议) 　　· DNS (域名解析） 　　· FTP（File Transfer Protocol）文件传输协议 　　· Gopher （英文原义：The Internet Gopher Protocol 中文释义：（RFC-1436）网际Gopher协议） 　　· HTTP （Hypertext Transfer Protocol）超文本传输协议 　　· IMAP4 (Internet Message Access Protocol 4) 即 Internet信息访问协议的第4版本 　　· IRC （Internet Relay Chat ）网络聊天协议 　　· NNTP （Network News Transport Protocol）RFC-977）网络新闻传输协议 　　· XMPP 可扩展消息处理现场协议 　　· POP3 (Post Office Protocol 3)即邮局协议的第3个版本 　　· SIP 信令控制协议 　　· SMTP （Simple Mail Transfer Protocol）即简单邮件传输协议 　　· SNMP (Simple Network Management Protocol,简单网络管理协议) 　　· SSH （Secure Shell）安全外壳协议 　　· TELNET 远程登录协议 　　· RPC （Remote Procedure Call Protocol）（RFC-1831）远程过程调用协议 　　· RTCP （RTP Control Protocol）RTP 控制协议 　　· RTSP （Real Time Streaming Protocol）实时流传输协议 　　· TLS （Transport Layer Security Protocol）安全传输层协议 　　· SDP( Session Description Protocol）会话描述协议 　　· SOAP （Simple Object Access Protocol）简单对象访问协议 　　· GTP 通用数据传输平台 　　· STUN （Simple Traversal of UDP over NATs，NAT 的UDP简单穿越）是一种网络协议 　　· NTP （Network Time Protocol）网络校时协议
+传输层
+　　·TCP（Transmission Control Protocol） 传输控制协议 　　· UDP (User Datagram Protocol） 用户数据报协议 　　· DCCP （Datagram Congestion Control Protocol）数据报拥塞控制协议 　　· SCTP（STREAM CONTROL TRANSMISSION PROTOCOL）流控制传输协议 　　· RTPReal-time Transport Protocol或简写RTP）实时传送协议 　　· RSVP （Resource ReSer Vation Protocol）资源预留协议 　　· PPTP ( Point to Point Tunneling Protocol）点对点隧道协议
+网络层
+　　IP (IPv4 · IPv6) · ARP · RARP · ICMP · ICMPv6 · IGMP · RIP · OSPF · BGP · IS-IS · IPsec
+数据链路层
+　　802.11 · 802.16 · Wi-Fi · WiMAX · ATM · DTM · 令牌环 · 以太网 · FDDI · 帧中继 · GPRS · EVDO · HSPA · HDLC · PPP · L2TP · ISDN
+物理层
+　　以太网物理层 · 调制解调器 · PLC · SONET/SDH · G.709 · 光导纤维 · 同轴电缆 · 双绞线

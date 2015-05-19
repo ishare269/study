@@ -1,0 +1,83 @@
+﻿/**删除数据库连接*/
+SHOW PROCESSLIST //查看连接
+//按条件查询连接
+SELECT CONCAT('kill ',id,';') FROM information_schema.PROCESSLIST WHERE db='testdb' AND HOST LIKE '127.0.0.1%'
+
+kill processNo
+
+http://koven2049.iteye.com/blog/465446
+
+/**查询数据中有几张表*/
+SELECT count(*) TABLES, table_schema FROM information_schema.TABLES  where table_schema = 'databases' GROUP BY table_schema;
+
+查询当前这周的数据
+SELECT name,submittime FROM enterprise WHERE YEARWEEK(date_format(submittime,'%Y-%m-%d')) = YEARWEEK(now());
+
+查询上周的数据
+SELECT name,submittime FROM enterprise WHERE YEARWEEK(date_format(submittime,'%Y-%m-%d')) = YEARWEEK(now())-1;
+
+查询当前月份的数据
+select name,submittime from enterprise   where date_format(submittime,'%Y-%m')=date_format(now(),'%Y-%m')
+
+查询距离当前现在6个月的数据
+select name,submittime from enterprise where submittime between date_sub(now(),interval 6 month) and now();
+
+查询上个月的数据
+select name,submittime from enterprise   where date_format(submittime,'%Y-%m')=date_format(DATE_SUB(curdate(), INTERVAL 1 MONTH),'%Y-%m')
+
+
+DATE_FORMA T(date, format) 根据格式串format 格式化日期或日期和时间值date，返回结果串。
+
+  可用DATE_FORMAT( ) 来格式化DATE 或DATETIME 值，以便得到所希望的格式。根据format字符串格式化date值:
+
+  %S, %s 两位数字形式的秒（ 00,01, . . ., 59）
+
+  %i 两位数字形式的分（ 00,01, . . ., 59）
+
+  %H 两位数字形式的小时，24 小时（00,01, . . ., 23）
+
+  %h, %I 两位数字形式的小时，12 小时（01,02, . . ., 12）
+
+  %k 数字形式的小时，24 小时（0,1, . . ., 23）
+
+  %l 数字形式的小时，12 小时（1, 2, . . ., 12）
+
+  %T 24 小时的时间形式（h h : m m : s s）
+
+  %r 12 小时的时间形式（hh:mm:ss AM 或hh:mm:ss PM）
+
+  %p AM 或P M
+
+  %W 一周中每一天的名称（ S u n d a y, Monday, . . ., Saturday）
+
+  %a 一周中每一天名称的缩写（ Sun, Mon, . . ., Sat）
+
+  %d 两位数字表示月中的天数（ 00, 01, . . ., 31）
+
+  %e 数字形式表示月中的天数（ 1, 2， . . ., 31）
+
+ %D 英文后缀表示月中的天数（ 1st, 2nd, 3rd, . . .）
+
+  %w 以数字形式表示周中的天数（ 0 = S u n d a y, 1=Monday, . . ., 6=Saturday）
+
+  %j 以三位数字表示年中的天数（ 001, 002, . . ., 366）
+
+  % U 周（0, 1, 52），其中Sunday 为周中的第一天
+
+  %u 周（0, 1, 52），其中Monday 为周中的第一天
+
+  %M 月名（J a n u a r y, February, . . ., December）
+
+  %b 缩写的月名（ J a n u a r y, February, . . ., December）
+
+  %m 两位数字表示的月份（ 01, 02, . . ., 12）
+
+  %c 数字表示的月份（ 1, 2, . . ., 12）
+
+  %Y 四位数字表示的年份
+
+  %y 两位数字表示的年份
+
+  %% 直接值“%”
+
+  select date_format(日期字段,’%Y-%m-%d’) as ‘日期’ from test

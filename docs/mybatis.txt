@@ -1,0 +1,35 @@
+
+两种批量更新语句
+1、多条更新语句，逗号分隔
+<update id="updateBatchCommission" parameterType="java.util.List">
+		<foreach collection="commissions" item=commission" separator=";">
+			update txcommission
+			<set>
+				status = #{commission.status}
+			</set>
+			where orderid = #{commission.orderId}
+		</foreach>
+</update>
+
+2、一条更新语句，循环设置set更新数据
+<update id="updateBatchCommission" parameterType="java.util.List">
+	update menu_button set 
+		column1=(
+			case 
+			<foreach collection="lists" item="list" index="index">
+				when id=#{list.param1} then #{list.param2}   
+			</foreach>
+			ELSE column1
+			end),
+		column2=(
+			case 
+			<foreach collection="lists" item="list" index="index">
+				when id=#{list.param1} then #{list.param2}   
+			</foreach>
+			ELSE column2
+			end),
+			...
+</update>
+          
+一对多查询分页
+select * from  (select * from txorders where id = '3e5de7136d6d4a03a730d9e15f1e16c0'  limit 0,5) o left join txorderfoods  fd on o.id = fd.orderid

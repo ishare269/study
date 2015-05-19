@@ -1,0 +1,4 @@
+2015/1/22
+	<a href="xxx.action">链接</a>一个普通的a标签会请求后台2次，百度了一下，说是迅雷扩展插件导致，
+	我们可以卸载自己firefox上的Thunder Extension，可用户有没有装Thunder Extension我们是无
+	法知道的，也没有办法去卸载，建议开发中请求后台采用js实现

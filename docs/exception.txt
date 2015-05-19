@@ -1,0 +1,52 @@
+Caused by: java.lang.Error: Unresolved compilation problem: fromUser cannot be resolved
+
+Caused by: com.mysql.jdbc.MysqlDataTruncation: Data truncation: Data too long for column 'wxCode' at row 1
+	数据库里的“sex”等列的编码我都不是设置成utf-8的或者数据对于列‘sex’过长
+
+Caused by: java.net.ConnectException: Connection timed out: connect
+
+
+java.net.MalformedURLException: no protocol: ./images/tg.jpg
+
+
+
+com.alibaba.druid.pool.GetConnectionTimeoutException: wait millis 60000, active 0
+
+
+javax.servlet.ServletException: Servlet.init() for servlet spring threw exception
+	java.lang.NoClassDefFoundError: javax/portlet/PortletResponse
+
+
+
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'org.mybatis.spring.mapper.MapperScannerConfigurer#0' defined in URL [path 省略]: Cannot resolve reference to bean 'sqlSessionFactory' while setting bean property 'sqlSessionFactory'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sqlSessionFactory' defined in URL [file:/C:/Users/Auser/Workspaces/MyEclipse%208.5/.metadata/.me_tcat/webapps/smm/WEB-INF/classes/config/applicationContext.xml]: Cannot resolve reference to bean 'dataSource' while setting bean property 'dataSource'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSource' defined in URL [file:/C:/Users/Auser/Workspaces/MyEclipse%208.5/.metadata/.me_tcat/webapps/smm/WEB-INF/classes/config/applicationContext.xml]: Error setting property values; nested exception is org.springframework.beans.PropertyBatchUpdateException; nested PropertyAccessExceptions (1) are:
+
+	Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sqlSessionFactory' defined in URL [file:/C:/Users/Auser/Workspaces/MyEclipse%208.5/.metadata/.me_tcat/webapps/smm/WEB-INF/classes/config/applicationContext.xml]: Cannot resolve reference to bean 'dataSource' while setting bean property 'dataSource'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSource' defined in URL [file:/C:/Users/Auser/Workspaces/MyEclipse%208.5/.metadata/.me_tcat/webapps/smm/WEB-INF/classes/config/applicationContext.xml]: Error setting property values; nested exception is org.springframework.beans.PropertyBatchUpdateException; nested PropertyAccessExceptions (1) are:
+	PropertyAccessException 1: org.springframework.beans.MethodInvocationException: Property 'driverClassName' threw exception; nested exception is java.lang.IllegalStateException: Could not load JDBC driver class [${jdbc.driverClassName}]
+	在spring里使用org.mybatis.spring.mapper.MapperScannerConfigurer 进行自动扫描的时候，设置了sqlSessionFactory 的话，可能会导致PropertyPlaceholderConfigurer失效，也就是用${jdbc.username}这样之类的表达式，将无法获取到properties文件里的内容。 导致这一原因是因为，MapperScannerConigurer实际是在解析加载bean定义阶段的，这个时候要是设置sqlSessionFactory的话，会导致提前初始化一些类，这个时候，PropertyPlaceholderConfigurer还没来得及替换定义中的变量，导致把表达式当作字符串复制了。 但如果不设置sqlSessionFactory 属性的话，就必须要保证sessionFactory在spring中名称一定要是sqlSessionFactory ，否则就无法自动注入。又或者直接定义 MapperFactoryBean ，再或者放弃自动代理接口方式。 
+	就是这个org.mybatis.spring.mapper.MapperScannerConfigurer中配置的bean下有属性sqlSessionFactory，如果配置了，就去掉这个属性
+
+
+
+
+
+
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userServiceImpl': Injection of autowired dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Could not autowire field: private com.smm.mapper.UserMapper com.smm.service.impl.UserServiceImpl.userMapper; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No matching bean of type [com.smm.mapper.UserMapper] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	Caused by: org.springframework.beans.factory.BeanCreationException: Could not autowire field: private com.smm.mapper.UserMapper com.smm.service.impl.UserServiceImpl.userMapper; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No matching bean of type [com.smm.mapper.UserMapper] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	导致原因:web.xml里面spring.xml没能正确加载
+
+
+
+
+
+com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link
+
+	Caused by: java.net.ConnectException: Connection refused: connect
+		mysql连接字符串错误
+
+
+
+
+
+
+java.lang.AbstractMethodError: org.mybatis.spring.transaction.SpringManagedTransactionFactory.newTransaction（Ljava/sql/Connection;）Lorg/apache/ibatis/transaction/Transaction;  
+	mybatis 和没有batis-spring jar包版本异常

@@ -1,0 +1,3 @@
+项目无法部署到tomcat下
+	右击项目->properties->myeclipse->web（检查web context-root是否和项目名一致。）
+	右击项目->Build Path->Java Build Path->Configure Build Path->Source->default output folder（检查该目录是否正确）

@@ -1,0 +1,2 @@
+腾讯视频地址获取：
+	打开视频链接，找到iframe id名video_iframe 获得iframe src地址即是视频地址

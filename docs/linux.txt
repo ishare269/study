@@ -1,0 +1,37 @@
+打包war包 jar -cvfM 20150324.war ./webapps/tomcat/
+
+
+打包tar包 tar czvf this.tar.gz ./*.txt
+解压tar包 tar -zxvf this.tar.gz
+
+ubuntu安装系统：
+	刻录好的系统在启动时一直处于Peter Anvin 等待状态 
+	在启动盘里面/syslinux/syslinux.cfg
+	打开注释掉default vesamenu.c32
+
+格式化磁盘：
+	sudo fdisk -l	查看磁盘符号
+	sudo umount /dev/sdb	卸载磁盘
+	sudo fdisk /dev/sdb		查看磁盘详细信息
+	sudo mkfs.vfat -F 32 -n 名称 /dev/sdb	格式化磁盘
+	Reference resources：http://blog.csdn.net/android_learn/article/details/6893313
+	
+	
+	
+	
+	
+1、配置IP地址：编辑对应网卡文件（如果是suse在目录/etc/sysconfig/network下会看到对应
+网卡的MAC地址）；
+  #vi /etc/sysconfig/network-scripts/ifcfg-eth0
+  
+  
+2、配置DNS：修改对应的配置文件:
+
+  #vi /etc/resolv.conf
+nameserver 192.168.1.1
+
+
+3、重启网卡服务:
+  #service network restart
+  
+  reference link:http://www.it165.net/os/html/201207/2916.html

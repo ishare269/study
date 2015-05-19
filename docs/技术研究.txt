@@ -1,0 +1,13 @@
+oracle连接：ORA-04030:在尝试分配25136字节时进程内存不足
+
+
+jsoup  htmlunit  kettle数据抓取
+
+网页截图
+
+socket
+
+
+aspose.word java怎么用
+
+建过maven项目

@@ -1,0 +1,1 @@
+使用时删除javaee.jar包中javax文件夹下的activation和mail

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+	
+	<!-- 控制台输出 -->
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder charset="UTF-8">
+			<pattern>%-4relative [%thread] %-5level %class - %msg%n</pattern>
+		</encoder>
+	</appender>
+	
+	<!-- 
+		  日志安装日志和大小滚动    简单解释为 在同一天的日志文件按照大小进行分割
+		 file 为日志文件路径+名称
+		 fileNamePattern 为滚动后重命名的路径+名称
+		 NB: 注意文件路径分隔符 WIN '\' , LINUX '/'
+	 -->
+	<appender name="FILE"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>\logs\log.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>\logs\log-%d{yyyy-MM-dd}-%i.log</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>20MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%-4relative [%thread] %-5level %logger - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+	
+	<!-- 
+		 单纯安装文件大小进行分割, 如果超出最大索引值则删除时间最早的日志，然后按照同样规则重命名
+	 -->
+	<appender name="LOG_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>path/logs/log.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<FileNamePattern>path/logs/log_%i.log</FileNamePattern>
+			<MinIndex>1</MinIndex>
+			<MaxIndex>4</MaxIndex>
+		</rollingPolicy>
+		<triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<MaxFileSize>10MB</MaxFileSize>
+		</triggeringPolicy>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] %-5level %-28.28thread %-64.64logger{64} %X{medic.eventCode} %msg %ex%n</Pattern>
+		</encoder>
+	</appender>
+	
+	
+	<root>
+		<level value="debug" />
+		<appender-ref ref="FILE" />
+		<appender-ref ref="STDOUT" />
+	</root>
+</configuration>

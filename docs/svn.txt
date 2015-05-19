@@ -1,0 +1,2 @@
+用户名 密码保存在
+C:\Documents and Settings\【user】\Application Data\Subversion\auth\svn.simple
